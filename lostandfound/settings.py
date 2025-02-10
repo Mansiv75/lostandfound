@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-i48m48hxc-n2-wa#fe=_i&zza5ly0d1oe4(3!tr$i$_uzso#c0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["lostandfound-8td0.onrender.com", "localhost"]
+ALLOWED_HOSTS = ["lostandfound-8td0.onrender.com", "127.0.0.1"]
 
 
 # Application definition
@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ["lostandfound-8td0.onrender.com", "localhost"]
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'whitenoise.runserver_nostatic',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
