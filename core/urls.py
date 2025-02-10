@@ -5,8 +5,13 @@ from rest_framework_simplejwt.views import TokenRefreshView
 from django.conf import settings
 from django.conf.urls.static import static
 from .swagger import schema_view
+from django.http import JsonResponse
+
+def home():
+    return JsonResponse({'message':'Welcome to Lost and Found API'})
 
 urlpatterns = [
+    path('', home, name='home'),
     path('users/register/', UserRegisterView.as_view(), name='register'),
     path('token/', TokenRefreshView.as_view(), name='token_refresh'),
     path('users/login/', UserLoginView.as_view(), name='login'),
