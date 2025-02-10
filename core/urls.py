@@ -2,6 +2,8 @@ from django.urls import path
 from .views import LostItemListCreateView, LostItemDeleteView, FoundItemListCreateView,  FoundItemDeleteView, MatchItemsView, UserRegisterView
 from .views import UserLoginView, UserLostItemView, NearbyLostItemsView, NearbyFoundItemsView
 from rest_framework_simplejwt.views import TokenRefreshView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('users/register/', UserRegisterView.as_view(), name='register'),
@@ -16,3 +18,4 @@ urlpatterns = [
     path('nearby-lost-items/', NearbyLostItemsView.as_view(), name='nearmost-lost-items'),
     path('nearby-found-items/', NearbyFoundItemsView.as_view(), name='nearmost-found-items'),
 ]
+urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -8,12 +8,14 @@ from django.db.models import Q
 from django.contrib.auth.models import User
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.parsers import MultiPartParser, FormParser
 
 #User registration
 class UserRegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
+
 
 class UserLoginView(TokenObtainPairView):
     permission_classes = [AllowAny]
@@ -23,6 +25,7 @@ class LostItemListCreateView(generics.ListCreateAPIView):
     queryset = LostItem.objects.all()
     serializer_class = LostItemSerializer
     permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser] #enables file upload
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -33,6 +36,7 @@ class FoundItemListCreateView(generics.ListCreateAPIView):
     queryset = FoundItem.objects.all()
     serializer_class = FoundItemSerializer
     permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser] #enables file upload
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
