@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 from .swagger import schema_view
 from django.http import JsonResponse
 
-def home():
+def home(request):
     return JsonResponse({'message':'Welcome to Lost and Found API'})
 
 urlpatterns = [
