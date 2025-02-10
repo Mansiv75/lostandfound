@@ -9,6 +9,8 @@ from django.contrib.auth.models import User
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.parsers import MultiPartParser, FormParser
+from django.core.mail import send_mail
+from django.conf import settings
 
 #User registration
 class UserRegisterView(generics.CreateAPIView):
@@ -79,6 +81,14 @@ class MatchItemsView(APIView):
                         'lost_item':LostItemSerializer(lost).data,
                         'found_item':FoundItemSerializer(found).data,
                     })
+                    if lost.user and lost.user.email:
+                        send_mail(
+                        subject="Your lost item might be found!",
+                        message=f"Your lost item '{lost.name}' might be found at {found.location}.",
+                        from_email=settings.EMAIL_HOST_USER,
+                        recipient_list=[lost.user.email],
+                        fail_silently=False,
+                    )
         return Response(matches)
     
 class UserLostItemView(generics.ListAPIView):
