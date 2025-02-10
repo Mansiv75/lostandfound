@@ -7,27 +7,15 @@ from rest_framework.views import APIView
 from django.db.models import Q
 
 
-#Report a lost item(POST)
-class LostItemCreateView(generics.CreateAPIView):
+#Report a lost item(POST/GET)
+class LostItemListCreateView(generics.ListCreateAPIView):
     queryset = LostItem.objects.all()
     serializer_class = LostItemSerializer
 
-#Report a found item(POST)
-class FoundItemCreateView(generics.CreateAPIView):
+#Report a found item(POST/GET)
+class FoundItemListCreateView(generics.ListCreateAPIView):
     queryset = FoundItem.objects.all()
     serializer_class = FoundItemSerializer
-
-#List all lost items(GET)
-class LostItemListView(generics.ListAPIView):
-    queryset = LostItem.objects.all()
-    serializer_class = LostItemSerializer
-
-#List all found items(GET)
-class FoundItemListView(generics.ListAPIView):
-    queryset=FoundItem.objects.all()
-    serializer_class=FoundItemSerializer
-
-
 
 #Delete a lost item(DELETE)
 class LostItemDeleteView(generics.DestroyAPIView):
