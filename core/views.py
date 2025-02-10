@@ -23,6 +23,8 @@ class FoundItemListViewI(generics.ListAPIView):
     queryset=FoundItem.objects.all()
     serializer_class=FoundItemSerializer
 
+
+
 #Delete a lost item(DELETE)
 class LostItemDeleteView(generics.DestroyAPIView):
     queryset = LostItem.objects.all()
