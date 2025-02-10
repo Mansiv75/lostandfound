@@ -151,3 +151,5 @@ EMAIL_HOST_PASSWORD = "Emailpassword"
 SWAGGER_SETTINGS = {
     'USE_SESSION_AUTH': False,
 }
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
