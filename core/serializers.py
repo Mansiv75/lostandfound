@@ -13,11 +13,13 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 class LostItemSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')    
     class Meta:
         model=LostItem
         fields = '__all__'
 
 class FoundItemSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')
     class Meta:
         model=FoundItem
         fields = '__all__'

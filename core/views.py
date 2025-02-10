@@ -24,11 +24,18 @@ class LostItemListCreateView(generics.ListCreateAPIView):
     serializer_class = LostItemSerializer
     permission_classes = [IsAuthenticated]
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
 #Report a found item(POST/GET)
 class FoundItemListCreateView(generics.ListCreateAPIView):
     queryset = FoundItem.objects.all()
     serializer_class = FoundItemSerializer
     permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 #Delete a lost item(DELETE)
 class LostItemDeleteView(generics.DestroyAPIView):
@@ -36,11 +43,17 @@ class LostItemDeleteView(generics.DestroyAPIView):
     serializer_class=LostItemSerializer
     permission_classes = [IsAuthenticated]
 
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
+
 #Delete a found item(DELETE)
 class FoundItemDeleteView(generics.DestroyAPIView):
     queryset = FoundItem.objects.all()
     serializer_class = FoundItemSerializer
     permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
 
 #Match Items
 
@@ -63,3 +76,11 @@ class MatchItemsView(APIView):
                         'found_item':FoundItemSerializer(found).data,
                     })
         return Response(matches)
+    
+class UserLostItemView(generics.ListAPIView):
+    queryset = LostItem.objects.all()
+    serializer_class = LostItemSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
