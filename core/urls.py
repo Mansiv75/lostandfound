@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import LostItemListCreateView, LostItemDeleteView, FoundItemListCreateView,  FoundItemDeleteView, MatchItemsView, UserRegisterView
-from .views import UserLoginView, UserLostItemView
+from .views import UserLoginView, UserLostItemView, NearbyLostItemsView, NearbyFoundItemsView
 from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
@@ -13,4 +13,6 @@ urlpatterns = [
     path('found-items/<int:pk>/', FoundItemDeleteView.as_view(), name='found-item-delete'),
     path('match-items/', MatchItemsView.as_view(), name='match-items'),
     path('lost-items/history', UserLostItemView.as_view(), name='lost-item-history'),
+    path('nearby-lost-items/', NearbyLostItemsView.as_view(), name='nearmost-lost-items'),
+    path('nearby-found-items/', NearbyFoundItemsView.as_view(), name='nearmost-found-items'),
 ]

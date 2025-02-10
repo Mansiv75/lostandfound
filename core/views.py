@@ -84,3 +84,23 @@ class UserLostItemView(generics.ListAPIView):
 
     def get_queryset(self):
         return self.queryset.filter(user=self.request.user)
+
+class NearbyLostItemsView(generics.ListAPIView):
+    serializer_class = LostItemSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        location = self.request.query_params.get('location', None)
+        if location:
+            return LostItem.objects.filter(location_icontains=location)
+        return LostItem.objects.all()
+    
+class NearbyFoundItemsView(generics.ListAPIView):
+    serializer_class = FoundItemSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        location = self.request.query_params.get('location', None)
+        if location:
+            return FoundItem.objects.filter(location_icontains=location)
+        return FoundItem.objects.all()
