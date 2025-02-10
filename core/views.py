@@ -19,7 +19,7 @@ class LostItemListView(generics.ListAPIView):
     serializer_class = LostItemSerializer
 
 #List all found items(GET)
-class FoundItemListViewI(generics.ListAPIView):
+class FoundItemListView(generics.ListAPIView):
     queryset=FoundItem.objects.all()
     serializer_class=FoundItemSerializer
 
