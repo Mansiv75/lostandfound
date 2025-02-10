@@ -5,27 +5,42 @@ from .serializers import UserSerializer, LostItemSerializer, FoundItemSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.db.models import Q
+from django.contrib.auth.models import User
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework_simplejwt.views import TokenObtainPairView
 
+#User registration
+class UserRegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [AllowAny]
+
+class UserLoginView(TokenObtainPairView):
+    permission_classes = [AllowAny]
 
 #Report a lost item(POST/GET)
 class LostItemListCreateView(generics.ListCreateAPIView):
     queryset = LostItem.objects.all()
     serializer_class = LostItemSerializer
+    permission_classes = [IsAuthenticated]
 
 #Report a found item(POST/GET)
 class FoundItemListCreateView(generics.ListCreateAPIView):
     queryset = FoundItem.objects.all()
     serializer_class = FoundItemSerializer
+    permission_classes = [IsAuthenticated]
 
 #Delete a lost item(DELETE)
 class LostItemDeleteView(generics.DestroyAPIView):
     queryset = LostItem.objects.all()
     serializer_class=LostItemSerializer
+    permission_classes = [IsAuthenticated]
 
 #Delete a found item(DELETE)
 class FoundItemDeleteView(generics.DestroyAPIView):
     queryset = FoundItem.objects.all()
     serializer_class = FoundItemSerializer
+    permission_classes = [IsAuthenticated]
 
 #Match Items
 
